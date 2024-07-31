@@ -21,7 +21,7 @@
 </div>
 
 
-## Software Requirements Document - SRS
+## Software Requirements Documentation - SRS
 
 For the detailed Software Requirements documentation, see the [SRS Document](./docs/Software%20Requirements%20Specifications%20Doc%20-%20BugNet%20Core.md).
 
