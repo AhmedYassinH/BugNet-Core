@@ -1,9 +1,10 @@
 # BugNet Core
 
+
 <br/>
 <div align="center">
   <a href="https://github.com/AhmedYassinH/BugNet-Core">
-    <img src="./BugNet.png" alt="Logo" width="390" height="300">
+    <img src="./BugNet.png" alt="Logo" width="280" height="200">
   </a>
 
   <h3 align="center">BugNet Core</h3>
@@ -22,6 +23,13 @@
 </div>
 
 
+## Software Requirements Document - SRS
+
+For the detailed Software Requirements documentation, see the [API Design Document](./docs/Software%20Requirements%20Specifications%20Doc%20-%20BugNet%20Core.md).
+
+## API Documentation
+
+For the detailed API documentation, see the [API Design Document](./docs/API%20Design%20Document.md).
 
 ## Features
 
