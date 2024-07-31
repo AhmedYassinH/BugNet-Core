@@ -23,7 +23,7 @@
 
 ## Software Requirements Document - SRS
 
-For the detailed Software Requirements documentation, see the [API Design Document](./docs/Software%20Requirements%20Specifications%20Doc%20-%20BugNet%20Core.md).
+For the detailed Software Requirements documentation, see the [SRS Document](./docs/Software%20Requirements%20Specifications%20Doc%20-%20BugNet%20Core.md).
 
 ## API Documentation
 
