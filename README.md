@@ -26,7 +26,7 @@
 For the detailed Software Requirements documentation, see the [API Design Document](./docs/Software%20Requirements%20Specifications%20Doc%20-%20BugNet%20Core.md).
 
 ## API Documentation
-
+[API](API.md)
 For the detailed API documentation, see the [API Design Document](./docs/API%20Design%20Document.md).
 
 ## Features
