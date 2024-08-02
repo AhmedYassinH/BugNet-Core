@@ -1,0 +1,6 @@
+@BugNetCore.Api_HostAddress = http://localhost:5245
+
+GET {{BugNetCore.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
