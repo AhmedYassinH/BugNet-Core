@@ -17,4 +17,6 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 // BugNetCore.Models
 global using BugNetCore.Models.Entities.Base;
 global using BugNetCore.Models.Entities.Configuration;
+global using BugNetCore.Models.Entities.Configuration.Base;
+
 
