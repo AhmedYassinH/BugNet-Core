@@ -1,6 +1,5 @@
 ﻿namespace BugNetCore.Models.Entities
 {
-    [EntityTypeConfiguration(typeof(UserConfiguration))]
     public class User : BaseEntityWithAudit
     {
         [Required]

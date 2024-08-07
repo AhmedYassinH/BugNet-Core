@@ -1,10 +1,8 @@
-﻿
-
-namespace BugNetCore.Models.Entities.Configuration
+﻿namespace BugNetCore.Models.Entities.Configuration.Base
 {
-    public class BaseEntityWithAuditConfiguration : IEntityTypeConfiguration<BaseEntityWithAudit>
+    public class BaseEntityWithAuditConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseEntityWithAudit
     {
-        public void Configure(EntityTypeBuilder<BaseEntityWithAudit> builder)
+        public void Configure(EntityTypeBuilder<T> builder)
         {
             builder
                 .Property(u => u.CreatedAt)
