@@ -11,8 +11,15 @@
             builder
                 .Property(u => u.LastModified)
                 .HasDefaultValueSql("now() at time zone 'utc'")
-                .ValueGeneratedOnAddOrUpdate();
+            .ValueGeneratedOnAddOrUpdate();
 
+            builder
+            .Property(u => u.RowVersion)
+            .IsConcurrencyToken()
+            .HasColumnName("xmin")
+            .HasColumnType("xid")
+            .ValueGeneratedOnAddOrUpdate()
+            .IsRowVersion();
         }
     }
 }

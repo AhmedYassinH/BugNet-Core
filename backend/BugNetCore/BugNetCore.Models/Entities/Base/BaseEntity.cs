@@ -6,10 +6,10 @@ namespace BugNetCore.Models.Entities.Base
     public abstract class BaseEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Timestamp]
-        public byte[] TimeStamp { get; set; }
+        [Column("xmin", TypeName = "xid")]
+        [ConcurrencyCheck]
+        public uint RowVersion { get; set; }
     }
 }
