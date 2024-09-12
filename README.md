@@ -15,7 +15,9 @@
     <br />
     <a href="https://github.com/AhmedYassinH/BugNet-Core/tree/main/docs">Docs</a>
     ·
-    <a href="https://ahmedyassin.dev/">View Demo</a>
+    <a href="https://bugnet.ahmedyassin.dev/">View Demo</a>
+    .
+    <a href="https://bugapi.ahmedyassin.dev/">Live API</a>
   </p>
     <br />
 </div>
