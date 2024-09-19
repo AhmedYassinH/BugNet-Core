@@ -13,9 +13,11 @@
     BugNet Core is a comprehensive, real-time bug tracking system designed to streamline the process of managing and resolving software issues. Built with modern web technologies, it offers a robust solution for development teams to efficiently handle bug reports, collaborate in real-time, and provide live support to customers.
     <br />
     <br />
-    <a href="https://github.com/AhmedYassinH/BugNet-Core/tree/main/docs">Docs</a>
+    <a href="https://github.com/AhmedYassinH/BugNet-Core/tree/main/docs" target="_blank">Docs</a>
     ·
-    <a href="https://ahmedyassin.dev/">View Demo</a>
+    <a href="https://bugnet.ahmedyassin.dev/" target="_blank">View Demo</a>
+    .
+    <a href="https://bugapi.ahmedyassin.dev/swagger" target="_blank">Live API</a>
   </p>
     <br />
 </div>
