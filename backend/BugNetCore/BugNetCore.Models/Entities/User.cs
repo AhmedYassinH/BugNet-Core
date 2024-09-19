@@ -21,6 +21,9 @@
        
         public string? Bio { get; set; }
 
+        [DefaultValue(false)]
+        public bool IsVerified { get; set; }
+
 
         [InverseProperty(nameof(Bug.Customer))]
         public ICollection<Bug> ReportedBugs { get; set; } = new List<Bug>();

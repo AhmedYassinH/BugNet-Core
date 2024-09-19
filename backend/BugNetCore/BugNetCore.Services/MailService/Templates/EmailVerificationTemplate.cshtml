@@ -1,0 +1,21 @@
+@using BugNetCore.Services.MailService.Models
+@model EmailVerificationModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <img src="https://github.com/AhmedYassinH/BugNet-Core/raw/main/BugNet.png" alt="Logo Image" width="200px" />
+        <p>For more info visit <a href="https://ahmedyassin.dev">www.ahmedyassin.dev</a></p>
+    </div>
+    <p>Dear @Model.UserName,</p>
+    <p>Please verify your email by clicking the link below:</p>
+    <a href="@Model.VerificationLink">Verify Email</a>
+    <p style="color: red;">This link will expire in 24 hours.</p>
+    <p>If you did not request this, please ignore this email.</p>
+    <p>Thank you!</p>
+</body>
+</html>

@@ -15,7 +15,7 @@
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
-
+        public DbSet<SeriLogEntry> SeriLogEntries { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

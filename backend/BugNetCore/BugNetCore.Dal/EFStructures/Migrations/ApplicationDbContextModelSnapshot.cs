@@ -37,7 +37,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<int>("CustomerAssignedSeverity")
                         .HasColumnType("integer");
@@ -55,7 +55,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid");
@@ -95,12 +95,12 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("MessageText")
                         .IsRequired()
@@ -133,12 +133,12 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
@@ -178,12 +178,12 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
@@ -209,15 +209,18 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("BugId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -229,10 +232,17 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                         .HasColumnType("xid")
                         .HasColumnName("xmin");
 
+                    b.Property<Guid?>("SupportRequestId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BugId");
+
+                    b.HasIndex("SupportRequestId");
 
                     b.ToTable("Notifications");
                 });
@@ -246,7 +256,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -254,7 +264,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -266,12 +276,53 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                         .HasColumnType("xid")
                         .HasColumnName("xmin");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("BugNetCore.Models.Entities.SeriLogEntry", b =>
+                {
+                    b.Property<string>("ApplicationName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("LineNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MemberName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MessageTemplate")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("PropsTest")
+                        .HasColumnType("jsonb");
+
+                    b.Property<DateTime?>("RaiseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.ToTable("SeriLogs", "Logging");
                 });
 
             modelBuilder.Entity("BugNetCore.Models.Entities.SupportRequest", b =>
@@ -286,12 +337,12 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
@@ -322,16 +373,19 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -374,7 +428,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("boolean");
@@ -382,7 +436,7 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<Guid>("NotificationId")
                         .HasColumnType("uuid");
@@ -414,12 +468,12 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasDefaultValueSql("now()");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid");
@@ -525,6 +579,23 @@ namespace BugNetCore.Dal.EFStructures.Migrations
                     b.Navigation("Bug");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("BugNetCore.Models.Entities.Notification", b =>
+                {
+                    b.HasOne("BugNetCore.Models.Entities.Bug", "Bug")
+                        .WithMany()
+                        .HasForeignKey("BugId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("BugNetCore.Models.Entities.SupportRequest", "SupportRequest")
+                        .WithMany()
+                        .HasForeignKey("SupportRequestId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Bug");
+
+                    b.Navigation("SupportRequest");
                 });
 
             modelBuilder.Entity("BugNetCore.Models.Entities.SupportRequest", b =>

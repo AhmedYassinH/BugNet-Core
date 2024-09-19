@@ -7,17 +7,28 @@
         [Required]
         public string Message { get; set; }
 
+        public Guid? BugId { get; set; } // FK
+
+        [ForeignKey(nameof(BugId))]
+        public Bug Bug { get; set; }
+
+        public Guid? SupportRequestId { get; set; } // FK
+
+        [ForeignKey(nameof(SupportRequestId))]
+        public SupportRequest SupportRequest { get; set; }
+
         [InverseProperty(nameof(UserNotification.Notification))]
         public ICollection<UserNotification> UserNotifications { get; set; } = new List<UserNotification>();
+
 
     }
 
     public enum NotificationType
     {
-        Bug,
+        BugCreation,
         Comment,
         ChatInvitation,
-        BugRequest,
+        SupportRequest,
         BugAssignment,
 
     }

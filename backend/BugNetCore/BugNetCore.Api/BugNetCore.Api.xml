@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BugNetCore.Api</name>
+    </assembly>
+    <members>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.AuthController.Register(BugNetCore.Models.DTOs.User.Auth.RegisterUserRequestDto)">
+            <summary>
+            Registers a new user with the provided registration details.
+            </summary>
+            <param name="registerRequestDto">The request DTO containing the user's registration information.</param>
+            <returns>An ActionResult containing an AuthResponseDto with authentication details upon successful registration.</returns>
+            <remarks>
+            This endpoint allows the registration of a new user by processing the provided registration details.
+            The registration request includes user-specific information such as email, password.
+            Upon successful registration, the endpoint returns an authentication response DTO containing authentication details
+            such as jwt access token, expiration time, and user information.
+            </remarks>
+            <param name="registerRequestDto">The request DTO containing the user's registration information.</param>
+            <returns>An ActionResult containing a RegisterUserResponseDto with authentication details upon successful registration.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.AuthController.VerifyEmail(System.String)">
+            <summary>
+            Verifies the registered email of a user after they click the verification link from their email.
+            </summary>
+            <param name="verificationCode">The verification code sent to the user's email.</param>
+            <returns>An ActionResult indicating the result of the verification process.</returns>
+            <remarks>
+            This endpoint is used to verify the registered email of a user after they click the verification link from their email.
+            The verification process requires the user ID and the verification code sent to their email.
+            Upon successful verification, the endpoint returns an appropriate response indicating the result.
+            </remarks>
+            <param name="verificationCode">The verification code sent to the user's email.</param>
+            <returns>An ActionResult indicating the result of the verification process.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.AuthController.Login(BugNetCore.Models.DTOs.User.Auth.LoginUserRequestDto)">
+            <summary>
+            Logs in a user with the provided credentials.
+            </summary>
+            <param name="loginUserRequestDto">The request DTO containing the user's login credentials (email and password).</param>
+            <returns>An ActionResult containing an AuthResponseDto with authentication details upon successful login.</returns>
+            <remarks>
+            This endpoint allows a registered user to log in by providing their email and password.
+            Upon successful login, the endpoint returns an authentication response DTO containing authentication details
+            such as jwt access token, expiration time, and user information.
+            </remarks>
+            <param name="loginUserRequestDto">The request DTO containing the user's login credentials (email and password).</param>
+            <returns>An ActionResult containing an AuthResponseDto with authentication details upon successful login.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.AuthController.RequestPasswordReset(BugNetCore.Models.DTOs.User.Auth.RequestPasswordResetRequestDto)">
+            <summary>
+            Sends a password reset request to the user's email.
+            </summary>
+            <param name="requestPasswordResetRequestDto">The request DTO containing the user's email.</param>
+            <returns>An ActionResult indicating the result of the password reset request.</returns>
+            <remarks>
+            This endpoint allows a user to request a password reset by providing their email.
+            The endpoint sends a password reset link to the user's email if the email is valid and associated with an existing user.
+            </remarks>
+            <param name="requestPasswordResetRequestDto">The request DTO containing the user's email.</param>
+            <returns>An ActionResult indicating the result of the password reset request.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.AuthController.ConfirmPasswordReset(BugNetCore.Models.DTOs.User.Auth.ConfirmPasswordResetRequestDto,System.String)">
+            <summary>
+            Confirms the password reset for a user.
+            </summary>
+            <param name="confirmPasswordResetRequestDto">The request DTO containing the user's new password and reset token.</param>
+            <returns>An ActionResult indicating the result of the password reset confirmation.</returns>
+            <remarks>
+            This endpoint is used to confirm the password reset for a user.
+            The confirmation process requires the user's new password and the reset token received through email.
+            Upon successful confirmation, the endpoint returns an appropriate response indicating the result.
+            </remarks>
+            <param name="confirmPasswordResetRequestDto">The request DTO containing the user's new password and reset token.</param>
+            <returns>An ActionResult indicating the result of the password reset confirmation.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.NotificationController.GetAllUserNotificationAsync(System.Guid)">
+            <summary>
+            Gets all notifications for a user.
+            </summary>
+            <param name="userId">Primary key of the the user to get his/her related notifications</param>
+            <returns>All notification records related to a user.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1_0_Beta.NotificationController.ReadNotificationAsync(System.Guid)">
+            <summary>
+            Marks a notification as read for a user.
+            </summary>
+            <param name="notificationId">Primary key of the user notification.</param>
+            <returns>No content.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.Base.BaseCrudController`5.GetAll(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Gets all records with optional filtering, sorting, and pagination.
+            </summary>
+            <param name="filterOn">The property to filter records on. Supports filtering by various formats:.  
+            - Nested property filtering: Use syntax => {Property.NestedProperty}.  
+            - Boolean property filtering: Exact value: true.  
+            - String property filtering: Contains: "value".  
+            - Date Time property filtering:.  
+                * Exact date: =2022-01-01.  
+                * Date greater than or equal to: &gt;=2022-01-01.  
+                * Date less than or equal to: &lt;=2022-01-01.  
+                * Dates between two dates: 2022-01-01~2022-01-02.  
+            - Numeric property filtering:.  
+                * Exact value: =42.  
+                * Greater than or equal to: &gt;=100.  
+                * Less than or equal to: &lt;=50.  
+                * Range between two values: 10~20.  
+            </param>
+            <param name="filterQuery">The query string for filtering based on the specified property.</param>
+            <param name="sortBy">The property to sort records by.</param>
+            <param name="isAscending">Specifies the sort order (ascending or descending).</param>
+            <param name="pageSize">The number of records to return per page (default is 10).</param>
+            <param name="pageNumber">The page number to retrieve (default is 1).</param>
+            <remarks>
+            Supports various filtering formats, including nested properties, boolean values, string matching, date comparisons, and numeric comparisons.
+            </remarks>
+            <returns>All records matching the specified criteria.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.Base.BaseCrudController`5.GetOneAsync(System.Guid)">
+            <summary>
+            Gets a single record
+            </summary>
+            <param name="id">Primary key of the record</param>
+            <returns>Single record</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.Base.BaseCrudController`5.UpdateOneAsync(System.Guid,`3)">
+            <summary>
+            Updates a single record
+            </summary>
+            <param name="id">Primary key of the record to update</param>
+            <param name="entity">Entity to update</param>
+            <returns>Updated record</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.Base.BaseCrudController`5.AddOneAsync(`2)">
+            <summary>
+            Adds a single record
+            </summary>
+            <param name="entity">Entity to add</param>
+            <returns>Added record</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.Base.BaseCrudController`5.DeleteOneAsync(System.Guid,BugNetCore.Models.DTOs.Base.BaseDto)">
+            <summary>
+            Deletes a single record
+            </summary>
+            <remarks>
+            Sample body:
+            <pre>
+            {
+              "Id": 1,
+              "TimeStamp": "AAAAAAAAB+E="
+            }
+            </pre>
+            </remarks>
+            <returns>Success</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.BugController.AddOneAsync(BugNetCore.Models.DTOs.Bug.CreateBugRequestDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.ChatMessageController.GetAll(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Gets all records with optional filtering, sorting, and pagination.
+            </summary>
+            <param name="filterOn">The property to filter records on. Supports filtering by various formats:.  
+            - Nested property filtering: Use syntax => {Property.NestedProperty}.  
+            - Boolean property filtering: Exact value: true.  
+            - String property filtering: Contains: "value".  
+            - Date Time property filtering:.  
+                * Exact date: =2022-01-01.  
+                * Date greater than or equal to: &gt;=2022-01-01.  
+                * Date less than or equal to: &lt;=2022-01-01.  
+                * Dates between two dates: 2022-01-01~2022-01-02.  
+            - Numeric property filtering:.  
+                * Exact value: =42.  
+                * Greater than or equal to: &gt;=100.  
+                * Less than or equal to: &lt;=50.  
+                * Range between two values: 10~20.  
+            </param>
+            <param name="filterQuery">The query string for filtering based on the specified property.</param>
+            <param name="sortBy">The property to sort records by.</param>
+            <param name="isAscending">Specifies the sort order (ascending or descending).</param>
+            <param name="pageSize">The number of records to return per page (default is 10).</param>
+            <param name="pageNumber">The page number to retrieve (default is 1).</param>
+            <remarks>
+            Supports various filtering formats, including nested properties, boolean values, string matching, date comparisons, and numeric comparisons.
+            </remarks>
+            <returns>All records matching the specified criteria.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.CommentController.AddOneAsync(BugNetCore.Models.DTOs.Comment.CreateCommentRequestDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.SupportRequestController.AddOneAsync(BugNetCore.Models.DTOs.SupportRequest.CreateSupportRequestDto)">
+            <summary>
+            Adds a single record
+            </summary>
+            <param name="entity">Entity to add</param>
+            <returns>Added record</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.SupportRequestController.ActOnBorrowingStatusAsync(BugNetCore.Models.DTOs.SupportRequest.ActOnSupportRequestDto)">
+            <summary>
+            Perform an action on a Live Support Request. (Aprrove, Reject, Cancel, Close)
+            </summary>
+            <param name="actOnSupportRequestDto">The request containing the action to perform, the Support Request ID to act on and a Developer Id to be assigned to the Chat Room if the request is approved.</param>
+            <returns>
+            Either:
+            - 200 (OK): The Support Request action were successfully performed, and the Support Request record has been updated.
+            - 400 (Bad Request): The request was invalid. Check the response body for details on the encountered errors.
+            </returns>
+            <remarks>
+            This endpoint allows performing various actions on a Live Support Request record:
+            - Before approval/rejection by an admin:
+              - Customers can "Cancel" their Live Support Requests.
+              - Admins can "Approve" or "Reject" pending Live Support Requests initiated by the customers.
+            - After approval/rejection:
+              - Admins can still "Reject" the request at this stage.
+              - Admins can "Close" the Live Support Request after the chat has ended.
+            </remarks>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.UserController.UpdateOneAsync(System.Guid,BugNetCore.Models.DTOs.User.UpdateUserRequestDto)">
+            <summary>
+            Updates a single record
+            </summary>
+            <param name="id">Primary key of the record to update</param>
+            <param name="entity">Entity to update</param>
+            <returns>Updated record</returns>
+        </member>
+    </members>
+</doc>

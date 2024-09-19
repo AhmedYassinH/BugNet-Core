@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script src="signalr.js"></script>
+    <script>
+
+        function getJwtToken() {
+            // Replace with your logic to get the JWT token
+            // return localStorage.getItem('jwtToken');
+            localStorage.setItem('jwtToken', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJkNGU1ZjZhNy1iOGM5LTdkOGUtMmYzYS00YjVjNmQ3ZThmOWEiLCJ1bmlxdWVfbmFtZSI6ImN1c3RvbWVyMiIsImVtYWlsIjoiY3VzdG9tZXIyQGV4YW1wbGUuY29tIiwicm9sZSI6IkN1c3RvbWVyIiwibmJmIjoxNzI0NTA5Njc5LCJleHAiOjE3MjQ1MTY4NzksImlhdCI6MTcyNDUwOTY3OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.kw5nNoa1E6FQOQrQ2LzX3mwiysH7qeOXVCDVb8mbC-g");
+
+            return localStorage.getItem('jwtToken');
+        }
+        const token = getJwtToken();
+        const notificationConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/notification", {
+                accessTokenFactory: () => token
+            })
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+
+        const listenNotifications = () => notificationConnection.start()
+            .then(() => {
+                console.log('connected')
+                notificationConnection.on('ReceiveNotification', n => console.log(n))
+            })
+
+        const stopListeningNotifications = () => notificationConnection.stop()
+            .then(() => {
+                console.log('disconnected')
+                notificationConnection.off('ReceiveNotification')
+            })
+
+
+
+        var currentRequestId = ""
+        var currentUserId = ""
+
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        const auth = (u) => fetch('/auth?username=' + u)
+
+        const send = (message) => connection.send('SendMessage', { SupportRequestId: currentRequestId, SenderId: currentUserId, MessageText: message })
+
+        const create = (room) => fetch('/create?room=' + room)
+
+        const list = () => fetch('/list').then(r => r.json()).then(r => console.log("rooms", r))
+
+        // const logMessage = (m) => console.log(m) // needed for working example
+
+        const join = (requestId, userId) => connection.start()
+            .then(() => connection.invoke('JoinRoom', { SupportRequestId: requestId, UserId: userId }))
+            .then((history) => {
+                console.log('message history', history)
+                currentRequestId = requestId
+                currentUserId = userId
+                connection.on('ReceiveMessage', m => console.log(m))
+                // connection.on('send_message', logMessage) // needed for working example
+            })
+
+        const leave = () => connection.send('LeaveRoom', { SupportRequestId: currentRequestId })
+            .then(() => {
+                currentRequestId = ''
+                // function reference needs to be the same to work
+                // connection.off('send_message', m => console.log(m)) // doesn't work
+                // connection.off('send_message', logMessage) // works
+                connection.off('ReceiveMessage')
+                return connection.stop()
+            })
+
+    </script>
+</body>
+
+</html>

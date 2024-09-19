@@ -1,13 +1,43 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>BugNetCore.Api.xml</DocumentationFile>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+  
 
   <ItemGroup>
+    <None Update="BugNetCore.Api.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+  	</None>
+  </ItemGroup>
+
+  <!-- <ItemGroup>
+    <None Update="..\BugNetCore.Services\MailService\Templates\**\*.cshtml">
+      <Link>Templates\%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup> -->
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BugNetCore.Dal\BugNetCore.Dal.csproj" />
+    <ProjectReference Include="..\BugNetCore.Models\BugNetCore.Models.csproj" />
+    <ProjectReference Include="..\BugNetCore.Services\BugNetCore.Services.csproj" />
   </ItemGroup>
 
 </Project>
