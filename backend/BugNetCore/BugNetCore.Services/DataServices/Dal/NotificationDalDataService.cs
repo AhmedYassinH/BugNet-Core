@@ -38,7 +38,7 @@ namespace BugNetCore.Services.DataServices.Dal
                     notificationRes.AdditionalInfo.Add("SupportRequestId", (Guid)x.SupportRequestId);
 
                 }
-                else
+                else if (x.BugId != null)
                 {
                     notificationRes.AdditionalInfo.Add("BugId", (Guid)x.BugId);
 
@@ -46,7 +46,7 @@ namespace BugNetCore.Services.DataServices.Dal
 
                 return notificationRes;
 
-            });
+            }).Where(n => n.AdditionalInfo.Count != 0);
 
             return response;
 
