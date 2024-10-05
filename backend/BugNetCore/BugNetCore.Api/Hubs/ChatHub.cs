@@ -36,8 +36,11 @@ namespace BugNetCore.Api.Hubs
                 return messages;
             }
 
-            // Check if the user is the SupportDevId of the chat room or the the Customer associated with the Bug that the support request is for
-            if (chatRoom.SupportDevId != request.UserId && chatRoom.SupportRequest.Bug.CustomerId != request.UserId)
+            // Get the user
+            var user = await _userRepo.FindAsNoTrackingAsync(request.UserId);
+
+            // Use must be either the customer or the support dev or an admin to join
+            if (chatRoom.SupportDevId != request.UserId && chatRoom.SupportRequest.Bug.CustomerId != request.UserId && user.UserRole != Role.Admin)
             {
                 await Clients.Caller.SendAsync("Unauthorized", request.SupportRequestId);
                 return messages;
