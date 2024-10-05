@@ -45,6 +45,9 @@ internal class Program
                 // allow trainling comma
                 options.JsonSerializerOptions.AllowTrailingCommas = true;
 
+                // ignore null values
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
             })
             .ConfigureApiBehaviorOptions(options =>
             {
