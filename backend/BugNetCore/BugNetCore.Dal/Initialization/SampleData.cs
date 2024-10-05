@@ -4,11 +4,11 @@
     {
         public static List<User> Users => new()
         {
-            new() { Id = Guid.Parse("a1b2c3d4-e5f6-4a5b-9c8d-1e2f3a4b5c6d"), Username = "admin_user", Email = "admin@example.com", UserRole = Role.Admin, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "admin.jpg", Bio = "System administrator", IsVerified= true },
-            new() { Id = Guid.Parse("b2c3d4e5-f6a7-5b6c-0d1e-2f3a4b5c6d7e"), Username = "customer1", Email = "customer1@example.com", UserRole = Role.Customer, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "customer1.jpg", Bio = "Regular customer", IsVerified= true },
-            new() { Id = Guid.Parse("c3d4e5f6-a7b8-6c7d-1e2f-3a4b5c6d7e8f"), Username = "dev_john", Email = "john@example.com", UserRole = Role.Dev, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "john.jpg", Bio = "Senior developer", IsVerified= true },
-            new() { Id = Guid.Parse("d4e5f6a7-b8c9-7d8e-2f3a-4b5c6d7e8f9a"), Username = "customer2", Email = "customer2@example.com", UserRole = Role.Customer, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "customer2.jpg", Bio = "New customer", IsVerified= true },
-            new() { Id = Guid.Parse("e5f6a7b8-c9d0-8e9f-3a4b-5c6d7e8f9a0b"), Username = "dev_jane", Email = "jane@example.com", UserRole = Role.Dev, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "jane.jpg", Bio = "Junior developer", IsVerified= true }
+            new() { Id = Guid.Parse("a1b2c3d4-e5f6-4a5b-9c8d-1e2f3a4b5c6d"), Username = "admin_user", Email = "admin@example.com", UserRole = Role.Admin, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "https://bugapi.ahmedyassin.dev/Images/Users/User.jpg", Bio = "System administrator", IsVerified= true },
+            new() { Id = Guid.Parse("b2c3d4e5-f6a7-5b6c-0d1e-2f3a4b5c6d7e"), Username = "customer1", Email = "customer1@example.com", UserRole = Role.Customer, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "https://bugapi.ahmedyassin.dev/Images/Users/User.jpg", Bio = "Regular customer", IsVerified= true },
+            new() { Id = Guid.Parse("c3d4e5f6-a7b8-6c7d-1e2f-3a4b5c6d7e8f"), Username = "dev_john", Email = "john@example.com", UserRole = Role.Dev, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "https://bugapi.ahmedyassin.dev/Images/Users/User.jpg", Bio = "Senior developer", IsVerified= true },
+            new() { Id = Guid.Parse("d4e5f6a7-b8c9-7d8e-2f3a-4b5c6d7e8f9a"), Username = "customer2", Email = "customer2@example.com", UserRole = Role.Customer, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "https://bugapi.ahmedyassin.dev/Images/Users/User.jpg", Bio = "New customer", IsVerified= true },
+            new() { Id = Guid.Parse("e5f6a7b8-c9d0-8e9f-3a4b-5c6d7e8f9a0b"), Username = "dev_jane", Email = "jane@example.com", UserRole = Role.Dev, PasswordHash = "$2b$10$KgkHjoekgvvnDbld2WKuNuuOQJPoyjmjlplL7ZNTn44jBAzvXzQRu", Picture = "https://bugapi.ahmedyassin.dev/Images/Users/User.jpg", Bio = "Junior developer", IsVerified= true }
         };
 
         public static List<Project> Projects => new()
@@ -29,9 +29,9 @@
 
         public static List<Bug> Bugs => new()
         {
-            new() { Id = Guid.Parse("b4c5d6e7-f8a9-7b8c-2d3e-4f5a6b7c8d9e"), Description = "Login page crash", Category = BugCategory.Frontend, CustomerAssignedSeverity = BugSeverity.High, AdminAssignedPriority = BugPriority.High, Status = BugStatus.InProgress, Screenshot = "login_crash.png", ProjectId = Projects[0].Id, CustomerId = Users[1].Id, DevId = Users[2].Id },
-            new() { Id = Guid.Parse("c5d6e7f8-a9b0-8c9d-3e4f-5a6b7c8d9e0f"), Description = "Database connection issue", Category = BugCategory.Backend, CustomerAssignedSeverity = BugSeverity.Urgent, AdminAssignedPriority = BugPriority.High, Status = BugStatus.Reported, Screenshot = "db_error.png", ProjectId = Projects[1].Id, CustomerId = Users[3].Id, DevId = null },
-            new() { Id = Guid.Parse("d6e7f8a9-b0c1-9d0e-4f5a-6b7c8d9e0f1a"), Description = "UI misalignment on mobile", Category = BugCategory.UI, CustomerAssignedSeverity = BugSeverity.Low, AdminAssignedPriority = BugPriority.Low, Status = BugStatus.Testing, Screenshot = "mobile_ui.png", ProjectId = Projects[0].Id, CustomerId = Users[1].Id, DevId = Users[4].Id }
+            new() { Id = Guid.Parse("b4c5d6e7-f8a9-7b8c-2d3e-4f5a6b7c8d9e"),Title="Login Page issue", Description = "Login page crash", Category = BugCategory.Frontend, CustomerAssignedSeverity = BugSeverity.High, AdminAssignedPriority = BugPriority.High, Status = BugStatus.InProgress, Screenshot = "https://bugapi.ahmedyassin.dev/Images/Bugs/bug.png", ProjectId = Projects[0].Id, CustomerId = Users[1].Id, DevId = Users[2].Id },
+            new() { Id = Guid.Parse("c5d6e7f8-a9b0-8c9d-3e4f-5a6b7c8d9e0f"),Title="database issue", Description = "Database connection issue", Category = BugCategory.Backend, CustomerAssignedSeverity = BugSeverity.Urgent, AdminAssignedPriority = BugPriority.High, Status = BugStatus.Reported, Screenshot = "https://bugapi.ahmedyassin.dev/Images/Bugs/bug.png", ProjectId = Projects[1].Id, CustomerId = Users[3].Id, DevId = null },
+            new() { Id = Guid.Parse("d6e7f8a9-b0c1-9d0e-4f5a-6b7c8d9e0f1a"),Title="UI issue", Description = "UI misalignment on mobile", Category = BugCategory.UI, CustomerAssignedSeverity = BugSeverity.Low, AdminAssignedPriority = BugPriority.Low, Status = BugStatus.Testing, Screenshot = "https://bugapi.ahmedyassin.dev/Images/Bugs/bug.png", ProjectId = Projects[0].Id, CustomerId = Users[1].Id, DevId = Users[4].Id }
         };
 
         public static List<Comment> Comments => new()

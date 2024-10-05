@@ -2,6 +2,8 @@
 {
     public class ReadBugResponseDto : BaseEntityWithAudit
     {
+        public string Title { get; set; }
+
         public string Description { get; set; }
 
         public BugCategory Category { get; set; }

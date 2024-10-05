@@ -22,8 +22,8 @@
         [Required]
         public Guid ProjectId { get; set; } // FK
 
-        [Required]
-        public Guid CustomerId { get; set; } // Fk
+      
+        public Guid? CustomerId { get; set; } // Fk
 
         public Guid? DevId { get; set; } // Fk
 

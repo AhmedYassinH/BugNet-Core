@@ -100,6 +100,106 @@ namespace BugNetCore.Api.Controllers.V1._0_Beta
         }
 
 
+
+        /// <summary>
+        /// Updates a single record
+        /// </summary>
+        /// <param name="id">Primary key of the record to update</param>
+        /// <param name="entity">Entity to update</param>
+        /// <returns>Updated record</returns>
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerResponse(200, "The execution was successful")]
+        [SwaggerResponse(400, "The request was invalid")]
+        [SwaggerResponse(401, "Unauthorized access attempted")]
+        [SwaggerResponse(403, "Forbidden access attempted")]
+        [SwaggerResponse(404, "The requested resource was not found")]
+        [SwaggerResponse(500, "An internal server error has occurred")]
+        [HttpPut("{id}")]
+        [Authorize]
+        public async override Task<ActionResult<ReadBugResponseDto>> UpdateOneAsync([FromRoute] Guid id, [FromForm] UpdateBugRequestDto entity)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                Dictionary<string, string[]> errors = ModelState.ToDictionary(
+                    x => x.Key,
+                    x => x.Value.Errors.Select(y => y.ErrorMessage).ToArray());
+
+                throw new customWebExceptions.ValidationException(errors);
+            }
+
+
+            if (id != entity.Id)
+            {
+                _logger.LogAppWarning("Id in the route and the entity do not match");
+                throw new customWebExceptions.ConflictException
+                    ("Id in the route and the entity do not match");
+            }
+
+
+
+
+            Bug domainEntity = _mapper.Map<Bug>(entity);
+
+            try
+            {
+                // If Screenshot exists, upload it to the wwwroot/Images/Bugs/{Screenshot.FileName}
+                if (entity.ScreenshotFile != null)
+                {
+                    var imageName = Path.GetFileName(entity.ScreenshotFile.FileName);
+
+                    // Get the path of the wwwroot folder
+                    var webRootPath = _webHostEnvironment.WebRootPath;
+
+                    // Image path in the StaticFiles Folder
+                    var localImagePath = Path.Combine(webRootPath, "Images", "Bugs", $"{imageName}");
+                    // Image URI
+                    var imageUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}/Images/Bugs/{imageName}";
+
+                    // Upload the image to the local StaticFiles Folder
+                    using var stream = new FileStream(localImagePath, FileMode.Create);
+                    // Write the image to the stream
+                    await entity.ScreenshotFile.CopyToAsync(stream);
+
+                    // Map the url to the dto
+                    domainEntity.Screenshot = imageUrl;
+                }
+                // Extract the userId from the Claims Principle in the context
+                var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                domainEntity.CustomerId = userId;
+                await _mainRepo.UpdateAsync(domainEntity);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new customWebExceptions.WebException(ex.Message)
+                {
+                    Code = "ConcurrencyError"
+                };
+            }
+            catch (UnknownDatabaseException ex)
+            {
+                throw new customWebExceptions.WebException(ex.Message)
+                {
+                    Code = "DatabaseError"
+                };
+            }
+
+
+
+            return Ok(_mapper.Map<ReadBugResponseDto>(domainEntity));
+        }
+
+
+
+
+
         // TODO: add endpoint to assign bug to dev and notify them
 
 

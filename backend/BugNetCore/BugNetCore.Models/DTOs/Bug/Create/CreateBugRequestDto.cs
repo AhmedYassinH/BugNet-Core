@@ -6,6 +6,9 @@ namespace BugNetCore.Models.DTOs.Bug
     public class CreateBugRequestDto
     {
         [Required]
+        public string Title { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         [Required]
