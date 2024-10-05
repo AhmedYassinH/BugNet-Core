@@ -204,6 +204,42 @@
             <param name="entity">Entity to add</param>
             <returns>Added record</returns>
         </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.SupportRequestController.GetAll(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Gets all records with optional filtering, sorting, and pagination.
+            </summary>
+            <param name="filterOn">The property to filter records on. Supports filtering by various formats:.  
+            - Nested property filtering: Use syntax => {Property.NestedProperty}.  
+            - Boolean property filtering: Exact value: true.  
+            - String property filtering: Contains: "value".  
+            - Date Time property filtering:.  
+                * Exact date: =2022-01-01.  
+                * Date greater than or equal to: &gt;=2022-01-01.  
+                * Date less than or equal to: &lt;=2022-01-01.  
+                * Dates between two dates: 2022-01-01~2022-01-02.  
+            - Numeric property filtering:.  
+                * Exact value: =42.  
+                * Greater than or equal to: &gt;=100.  
+                * Less than or equal to: &lt;=50.  
+                * Range between two values: 10~20.  
+            </param>
+            <param name="filterQuery">The query string for filtering based on the specified property.</param>
+            <param name="sortBy">The property to sort records by.</param>
+            <param name="isAscending">Specifies the sort order (ascending or descending).</param>
+            <param name="pageSize">The number of records to return per page (default is 10).</param>
+            <param name="pageNumber">The page number to retrieve (default is 1).</param>
+            <remarks>
+            Supports various filtering formats, including nested properties, boolean values, string matching, date comparisons, and numeric comparisons.
+            </remarks>
+            <returns>All records matching the specified criteria.</returns>
+        </member>
+        <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.SupportRequestController.GetOneAsync(System.Guid)">
+            <summary>
+            Gets a single record
+            </summary>
+            <param name="id">Primary key of the record</param>
+            <returns>Single record</returns>
+        </member>
         <member name="M:BugNetCore.Api.Controllers.V1._0_Beta.SupportRequestController.ActOnBorrowingStatusAsync(BugNetCore.Models.DTOs.SupportRequest.ActOnSupportRequestDto)">
             <summary>
             Perform an action on a Live Support Request. (Aprrove, Reject, Cancel, Close)

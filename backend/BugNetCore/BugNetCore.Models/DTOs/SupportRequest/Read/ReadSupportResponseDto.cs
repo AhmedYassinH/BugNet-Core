@@ -6,6 +6,11 @@
 
         public SupportRequestStatus Status { get; set; }
 
+        public ReadBugResponseDto? Bug { get; set; }
+
+        public ReadUserResponseDto? Customer { get; set; }
+
+        public ReadUserResponseDto? SupportDev { get; set; }
 
     }
 }

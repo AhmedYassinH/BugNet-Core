@@ -7,7 +7,7 @@
 
         }
 
-        public virtual IEnumerable<Bug> GetAllIgnoreQueryFilters(
+        public override IEnumerable<Bug> GetAllIgnoreQueryFilters(
         string? filterOn = null, string? filterQuery = null,
         string? sortBy = null, bool isAscending = true,
         int pageSize = 10, int pageNumber = 1
