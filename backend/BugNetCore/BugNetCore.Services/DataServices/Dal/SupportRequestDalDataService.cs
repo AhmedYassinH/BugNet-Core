@@ -123,6 +123,8 @@ namespace BugNetCore.Services.DataServices.Dal
                 SupportDev = _mapper.Map<ReadUserResponseDto>(request.ChatRoom?.SupportDev),
                 Status = request.Status,
                 BugId = request.BugId,
+                RowVersion = request.RowVersion
+
             };
 
             return response;
@@ -144,6 +146,7 @@ namespace BugNetCore.Services.DataServices.Dal
                     SupportDev = _mapper.Map<ReadUserResponseDto>(supportRequest.ChatRoom?.SupportDev),
                     Status = supportRequest.Status,
                     BugId = supportRequest.BugId,
+                    RowVersion = supportRequest.RowVersion
 
                 };
 

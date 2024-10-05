@@ -41,6 +41,9 @@
             CreateMap<BaseDto, Comment>();
             CreateMap<BaseDto, SupportRequest>();
 
+            // Mapping between same type
+            CreateMap<Bug, Bug>();
+
 
 
 
