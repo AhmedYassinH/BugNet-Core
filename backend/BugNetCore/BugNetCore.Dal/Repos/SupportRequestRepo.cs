@@ -38,7 +38,7 @@ namespace BugNetCore.Dal.Repos
                     .ThenInclude(c => c.SupportDev)
                     .FirstOrDefaultAsync(x => x.Id == id);
 
-                    
+
         public async Task<Guid> GetCustomerIdBySupportRequestIdAsync(Guid supportRequestId)
         {
             return await Table
@@ -46,6 +46,13 @@ namespace BugNetCore.Dal.Repos
                 .Include(x => x.Bug)
                 .Select(x => x.Bug.CustomerId)
                 .FirstOrDefaultAsync();
+        }
+
+        public int CountAllByUserIgnoreQueryFilters(Guid userId, string? filterOn = null, string? filterQuery = null)
+        {
+            IQueryable<SupportRequest> table = GetAllIgnoreQueryFiltersHelper(filterOn, filterQuery, null, null, null);
+            table.Where(r => r.Bug.CustomerId == userId || (r.ChatRoom != null && r.ChatRoom.SupportDevId == userId));
+            return table.Count();
         }
     }
 }

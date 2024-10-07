@@ -110,6 +110,8 @@ namespace BugNetCore.Services.DataServices.Dal
             return entity;
         }
 
+
+
         public async Task<ReadSupportResponseDto> FindWithUsersAsync(Guid id)
         {
             var request = await FindAsync(id);
@@ -155,6 +157,34 @@ namespace BugNetCore.Services.DataServices.Dal
 
         }
 
+        public async Task<IEnumerable<ReadSupportResponseDto>> GetAllRequestsByUserAsync(Guid userId, string? filterOn, string? filterQuery, string? sortBy, bool isAscending, int pageSize, int pageNumber)
+        {
+            IEnumerable<SupportRequest> requests = await GetAllAsync(filterOn, filterQuery, sortBy, isAscending, pageSize, pageNumber);
+
+            // For each one retrieved make sure the userId either belong to the Customer, Supporting dev 
+            requests = requests.Where(request => request.Bug.CustomerId == userId || request.ChatRoom?.SupportDevId == userId);
+
+            var response = requests.Select(supportRequest =>
+            {
+                var bugWithoutCustomer = _mapper.Map<Bug>(supportRequest.Bug);
+                bugWithoutCustomer.Customer = null;
+                return new ReadSupportResponseDto
+                {
+                    Id = supportRequest.Id,
+                    Bug = _mapper.Map<ReadBugResponseDto>(bugWithoutCustomer),
+                    Customer = _mapper.Map<ReadUserResponseDto>(supportRequest.Bug.Customer),
+                    SupportDev = _mapper.Map<ReadUserResponseDto>(supportRequest.ChatRoom?.SupportDev),
+                    Status = supportRequest.Status,
+                    BugId = supportRequest.BugId,
+                    RowVersion = supportRequest.RowVersion
+
+                };
+
+            });
+            return response;
+        }
+
+       
 
         public async Task<UpdateSupportResponseDto> HandleSupportRequestActionAndNotifyAsync(ActOnSupportRequestDto actOnSupportRequestDto, NotificationCallback? notificationCallback = null)
         {

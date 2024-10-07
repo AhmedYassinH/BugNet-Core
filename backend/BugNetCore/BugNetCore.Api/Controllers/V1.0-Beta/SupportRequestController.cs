@@ -113,6 +113,7 @@ namespace BugNetCore.Api.Controllers.V1._0_Beta
         [SwaggerResponse(404, "The requested resource was not found")]
         [SwaggerResponse(500, "An internal server error has occurred")]
         [HttpGet]
+        [Authorize]
         public async override Task<ActionResult<ReadAllRecordsResponseBaseDto<ReadSupportResponseDto>>> GetAll(
             [FromQuery] string? filterOn, [FromQuery] string? filterQuery, // Filtering
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,    // Sorting
@@ -124,13 +125,30 @@ namespace BugNetCore.Api.Controllers.V1._0_Beta
             int totalNumberOfEntities;
             try
             {
-                entityResponseDto = await _supportRequestDataService.GetAllWithUsersAsync(
-                    filterOn, filterQuery,
-                    sortBy, isAscending ?? true,
-                    pageSize, pageNumber
-                    );
+                var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                var userRole = Enum.Parse<Role>(User.FindFirst(ClaimTypes.Role).Value);
+                if (userRole == Role.Admin)
+                {
+                    entityResponseDto = await _supportRequestDataService.GetAllWithUsersAsync(
+                        filterOn, filterQuery,
+                        sortBy, isAscending ?? true,
+                        pageSize, pageNumber
+                        );
 
-                totalNumberOfEntities = _mainRepo.CountAllIgnoreQueryFilters(filterOn, filterQuery);
+                    totalNumberOfEntities = _mainRepo.CountAllIgnoreQueryFilters(filterOn, filterQuery);
+
+                }
+                else
+                {
+                    entityResponseDto = await _supportRequestDataService.GetAllRequestsByUserAsync(
+                        userId,
+                        filterOn, filterQuery,
+                        sortBy, isAscending ?? true,
+                        pageSize, pageNumber
+                        );
+
+                    totalNumberOfEntities = ((ISupportRequestRepo)_mainRepo).CountAllByUserIgnoreQueryFilters(userId, filterOn, filterQuery);
+                }
             }
             catch (FormatException ex)
             {
